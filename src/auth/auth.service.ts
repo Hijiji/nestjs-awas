@@ -18,6 +18,6 @@ export class AuthService {
 
     async getMember(member:Member):Promise<Member>{
         
-        return this.memberRepository.findOne(member);
+        return this.memberRepository.findOne(member.id);
     }
 }
