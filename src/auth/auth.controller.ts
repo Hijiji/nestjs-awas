@@ -8,16 +8,18 @@ import { Member } from './member.entity';
 export class AuthController {
     constructor(private authService:AuthService){}
     @Post()
-    createMember(@Body() createMemberDto:CreateMemberDto):Promise<void>{
+    createMember(@Body() createMemberDto:CreateMemberDto):Promise<Member>{
+        console.log("CONTROLLER");
         console.log(createMemberDto.name);
         console.log(createMemberDto.id);
         console.log(createMemberDto.pw);
+        
         return this.authService.createMember(createMemberDto);
     }
 
     @Get()
-    getMember(@GetMember() member:Member):Promise<Member>{
-        return this.authService.getMember(member);
+    getMember():Promise<Member>{
+        return this.authService.getMember();
     }
 }
 

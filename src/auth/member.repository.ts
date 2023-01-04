@@ -6,9 +6,16 @@ import { Member } from "./member.entity";
 
 @CustomRepository(Member)
 export class MemberRepository extends Repository<Member>{
-    async createMember(createMemberDto: CreateMemberDto):Promise<void>{
+    async createMember(createMemberDto: CreateMemberDto):Promise<Member>{
+        console.log("REPOSITORY 111111");
+        console.log(createMemberDto.name);
+        console.log(createMemberDto.id);
+        console.log(createMemberDto.pw);
         const {name, id, pw} = createMemberDto;
-
+        console.log("REPOSITORY 222222");
+        console.log(name);
+        console.log(id);
+        console.log(pw);
         const member =this.create({
             name,
             id,
@@ -16,11 +23,11 @@ export class MemberRepository extends Repository<Member>{
         });
 
         await this.save(member);
-        //return member;
+        return member;
     }
-    // async getMember(member:Member) :Promise<Member>{
-    //     const result =await super.createQueryBuilder('member')
-    //     .getOne();
-    //     return result;
-    // }
+    async getMember(member:Member) :Promise<Member>{
+        const result =await super.createQueryBuilder('member')
+        .getOne();
+        return result;
+    }
 }
