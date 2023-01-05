@@ -1,17 +1,17 @@
 import { Injectable } from "@nestjs/common";
 import { CustomRepository } from "src/typeorm.decorator";
 import { Repository } from "typeorm";
-import { CreateMemberDto } from "./dto/create-member.dto";
+import { AuthCredentialsDto } from "./dto/auth-credential.dto";
 import { Member } from "./member.entity";
 
 @CustomRepository(Member)
 export class MemberRepository extends Repository<Member>{
-    async createMember(createMemberDto: CreateMemberDto):Promise<Member>{
+    async createMember(authCredentialsDto: AuthCredentialsDto):Promise<Member>{
         console.log("REPOSITORY 111111");
-        console.log(createMemberDto.name);
-        console.log(createMemberDto.id);
-        console.log(createMemberDto.pw);
-        const {name, id, pw} = createMemberDto;
+        console.log(authCredentialsDto.name);
+        console.log(authCredentialsDto.id);
+        console.log(authCredentialsDto.pw);
+        const {name, id, pw} = authCredentialsDto;
         console.log("REPOSITORY 222222");
         console.log(name);
         console.log(id);

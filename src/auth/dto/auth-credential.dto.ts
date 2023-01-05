@@ -1,7 +1,7 @@
 import { Matches } from "class-validator";
 import { IsNotEmpty, IsString } from "class-validator"; ///types/decorator/decorators
 
-export class CreateMemberDto{
+export class AuthCredentialsDto{
 
     @IsString()
     @IsNotEmpty()
