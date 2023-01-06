@@ -8,29 +8,26 @@ import { Member } from './member.entity';
 export class AuthController {
     constructor(private authService:AuthService){}
 
+    //회원가입
     @Post("/createMember")
     createMember(@Body() authCredentialsDto:
     AuthCredentialsDto):Promise<Member>{
         console.log("CONTROLLER");
-        console.log(authCredentialsDto.name);
-        console.log(authCredentialsDto.id);
-        console.log(authCredentialsDto.pw);
-        console.log(authCredentialsDto.admissionDate);
-        
+        console.log(authCredentialsDto);        
         return this.authService.createMember(authCredentialsDto);
     }
 
+    //로그인
     @Post()
     signIn(@Body() authCredentialsDto:
     AuthCredentialsDto):Promise<string>{
-
         return this.authService.signIn(authCredentialsDto);
-
     }
 
-    @Get("/getMember")
-    getMember():Promise<Member>{
-        return this.authService.getMember();
+    //회원조회
+    @Get("/getMembers")
+    getMember():Promise<Member[]>{
+        return this.authService.getMembers();
     }
 }
 

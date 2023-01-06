@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { throws } from 'assert';
+import { truncateSync } from 'fs';
 import { stringify } from 'querystring';
 import { Repository } from 'typeorm';
 import { AuthCredentialsDto } from './dto/auth-credential.dto';
@@ -31,14 +32,21 @@ export class AuthService {
 
     }
 
+    //회원조회
     // async getMember():Promise<Member>{
         
     //     //return this.memberRepository.getMember(member);
     //     return this.memberRepository.findOneBy({id:'1'});
     // }
-    async getMember():Promise<Member>{
+    async getMembers():Promise<Member[]>{
         //return this.memberRepository.getMember(member);
-        return this.memberRepository.findOneBy({id:'1'});
+        return this.memberRepository.find({
+            select:{
+                id:true
+                ,pw:true
+                ,name:true
+                ,admissionDate:true
+            }
+        });
     }
-
 }
