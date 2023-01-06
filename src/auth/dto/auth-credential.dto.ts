@@ -17,4 +17,7 @@ export class AuthCredentialsDto{
         message: 'password only accepts english and number'
     })
     pw:string;
+
+    @IsString()
+    admissionDate:string;
 }

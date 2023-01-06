@@ -13,7 +13,7 @@ export class User extends BaseEntity {
     @Column()
     pw: string;
 
-    @Column({name:"admission_date"})
+    @Column()
     admissionDate: string;
 
     // @OneToMany(type => Board, board => board.user, { eager: true })

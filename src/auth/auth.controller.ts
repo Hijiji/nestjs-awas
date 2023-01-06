@@ -15,6 +15,7 @@ export class AuthController {
         console.log(authCredentialsDto.name);
         console.log(authCredentialsDto.id);
         console.log(authCredentialsDto.pw);
+        console.log(authCredentialsDto.admissionDate);
         
         return this.authService.createMember(authCredentialsDto);
     }
@@ -22,9 +23,7 @@ export class AuthController {
     @Post()
     signIn(@Body() authCredentialsDto:
     AuthCredentialsDto):Promise<string>{
-        console.log(authCredentialsDto.id);
-        console.log(authCredentialsDto.pw);
-        
+
         return this.authService.signIn(authCredentialsDto);
 
     }

@@ -16,10 +16,6 @@ export class AuthService {
 
     //회원가입
     async createMember(authCredentialsDto:AuthCredentialsDto):Promise<Member>{
-        console.log("SERViCE");
-        console.log(authCredentialsDto.name);
-        console.log(authCredentialsDto.id);
-        console.log(authCredentialsDto.pw);
         return this.memberRepository.createMember(authCredentialsDto);
         //return null;
     }
@@ -32,6 +28,7 @@ export class AuthService {
             return "로그인성공";
         }
         throw new UnauthorizedException('login failed');
+
     }
 
     // async getMember():Promise<Member>{
