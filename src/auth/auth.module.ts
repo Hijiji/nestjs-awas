@@ -8,8 +8,6 @@ import { Member } from './member.entity';
 @Module({
   imports:[
     TypeOrmModule.forFeature([Member])
-    //,CustomTypeOrmModule.forCustomRepository([MemberRepository])
-
   ]
   ,controllers: [AuthController]
   ,providers: [

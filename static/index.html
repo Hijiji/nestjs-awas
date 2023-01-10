@@ -6,21 +6,77 @@
   <title>login</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-  <script src='main.js'></script>
+  <!-- <script src='main.js'></script> -->
 </head>
 <body>
+  <h1 style="text-align:center; ">welcome</h6>
   <div style="padding: 1cm;">
     <span>로그인</span><br/>
-    ID <input type="text" style="margin-top:10px;"> <br/>
-    PW <input type="text"> <br/>
-    <input type="button" value="로그인" style="margin-top:10px;"></button>
+    ID <input type="text" id="signInID" style="margin-top:10px;"> <br/>
+    PW <input type="text" id="signInPW"> <br/>
+    <input type="button" value="로그인" onclick="signIn()" style="margin-top:10px;"></button>
   </div>
+  <hr>
   <div style="padding: 1cm;">
     <span>회원가입</span><br/>
-    ID <input type="text" style="margin-top:10px;"> <br/>
-    PW <input type="text"> <br/>
-    NAME <input type="text"> <br/>
-    <input type="button" value="회원가입"  style="margin-top:10px;"></button><br/>
+    ID <input type="text" id="createID" style="margin-top:10px;"> <br/>
+    PW <input type="text" id="createPW"> <br/>
+    NAME <input type="text" id="createName"> <br/>
+    <input type="button" value="회원가입" onclick="createMember()" style="margin-top:10px;"></button><br/>
   </div>
+
+<script>
+  
+  const signInID =document.querySelector("#signInID");
+  const signInPW =document.querySelector("#signInPW");
+  const createID =document.querySelector("#createID");
+  const createPW =document.querySelector("#createPW");
+  const createName =document.querySelector("#createName");
+
+  function signIn(){
+    fetch("http://localhost:3000/auth/signIn",{
+      method:"POST",
+      headers: {
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        id:signInID.value
+        ,pw:signInPW.value
+      })
+    })
+    .then((response)=>response.json())
+    .then((data)=>{
+      console.log(data);
+      if(data.result==="로그인성공"){
+        location.href="/home.html"
+      }else{
+        alert("로그인실패");
+      }
+    });
+  }
+
+  function createMember(){
+    fetch("http://localhost:3000/auth/createMember",{
+      method:"POST",
+      headers: {
+        "Content-Type":"application/json",
+      },
+      body:JSON.stringify({
+        id:createID.value
+        ,pw:createPW.value
+        ,name:createName.value
+      })
+    })
+    .then((response) => {
+      console.log(response);
+      response.json();
+      if(response.ok){
+        alert("회원가입성공");
+      }else{
+       alert("회원가입실패");
+      }
+    })
+  }
+</script>
 </body>
 </html>

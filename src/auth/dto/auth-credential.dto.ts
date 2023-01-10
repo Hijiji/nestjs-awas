@@ -13,7 +13,7 @@ export class AuthCredentialsDto{
 
     @IsNotEmpty()
     @IsString()
-    @Matches(/^[a-zA-Z0-9]*$/, {
+    @Matches(/^[a-zA-Z0-9]*$/, { //영어랑 숫자만 입력가능 유효성 체크
         message: 'password only accepts english and number'
     })
     pw:string;

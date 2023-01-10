@@ -1,12 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import Connection from 'mysql2/typings/mysql/lib/Connection';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { typeORMConfig } from './configs/typeorm.config';
-import { ConnectionService } from './connection.service';
 import { join } from 'path';
 
 @Module({
@@ -22,7 +18,7 @@ import { join } from 'path';
   ]
   ,providers: [
    //AppService
-    //,ConnectionService
+  
   ]
 
 })

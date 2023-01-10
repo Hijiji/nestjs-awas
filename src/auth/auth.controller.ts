@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credential.dto';
-import { GetMember } from './get-member.decorator';
 import { Member } from './member.entity';
 
 @Controller('auth')
@@ -13,20 +12,29 @@ export class AuthController {
     createMember(@Body() authCredentialsDto:
     AuthCredentialsDto):Promise<Member>{
         console.log("CONTROLLER");
-        console.log(authCredentialsDto);        
+        authCredentialsDto.admissionDate="2023-01-03";
+        console.log(authCredentialsDto);
+        
         return this.authService.createMember(authCredentialsDto);
     }
 
     //로그인
-    @Post()
+    @Post("/signIn")
     signIn(@Body() authCredentialsDto:
-    AuthCredentialsDto):Promise<string>{
+    AuthCredentialsDto):Promise<{}>{
         return this.authService.signIn(authCredentialsDto);
     }
 
     //회원조회
+    @Post("/getMember")
+    getMember(@Body() authCredentialsDto:AuthCredentialsDto):Promise<Member>{
+        console.log(authCredentialsDto);
+        return this.authService.getMember(authCredentialsDto);
+    }
+
+    //모든회원 조회
     @Get("/getMembers")
-    getMember():Promise<Member[]>{
+    getMembers():Promise<Member[]>{
         return this.authService.getMembers();
     }
 }
