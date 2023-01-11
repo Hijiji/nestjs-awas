@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credential.dto';
 import { Member } from './member.entity';
@@ -19,7 +19,7 @@ export class AuthController {
     }
 
     //로그인
-    @Post("/signIn")
+    @Get("/signIn")
     signIn(@Body() authCredentialsDto:
     AuthCredentialsDto):Promise<{}>{
         return this.authService.signIn(authCredentialsDto);
@@ -27,9 +27,9 @@ export class AuthController {
 
     //회원조회
     @Post("/getMember")
-    getMember(@Body() authCredentialsDto:AuthCredentialsDto):Promise<Member>{
-        console.log(authCredentialsDto);
-        return this.authService.getMember(authCredentialsDto);
+    getMember(@Param() id:string):Promise<Member>{
+        console.log(id);
+        return this.authService.getMember(id);
     }
 
     //모든회원 조회
