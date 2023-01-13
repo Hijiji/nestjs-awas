@@ -10,7 +10,7 @@ import { join } from 'path';
     TypeOrmModule.forRoot(typeORMConfig)
     ,AuthModule
     ,ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../static'), //두번째 인자값으로 .. 경로 넣고 세번째 인자값으로 'static 넣어도 됨'
+      rootPath: join(__dirname, '../static'), //두번째 인자값으로 .. 경로 넣고 세번째 인자값으로 'static' 넣어도 됨
     })
   ]
   ,controllers: [

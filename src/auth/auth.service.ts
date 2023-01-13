@@ -22,7 +22,7 @@ export class AuthService {
         });
 
         await this.memberRepository.save(member);
-        return this.getMember(id);
+        return this.getMember(authCredentialsDto);
     }
 
     //로그인
@@ -37,8 +37,9 @@ export class AuthService {
     }
 
     //회원조회
-    async getMember(id:string):Promise<Member>{
+    async getMember(authCredentialsDto:AuthCredentialsDto):Promise<Member>{
         console.log("getMember실행됨");
+        const {id}=authCredentialsDto;
         return this.memberRepository.findOneBy({id});
     }
 

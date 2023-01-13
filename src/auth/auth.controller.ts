@@ -19,7 +19,7 @@ export class AuthController {
     }
 
     //로그인
-    @Get("/signIn")
+    @Post("/signIn")
     signIn(@Body() authCredentialsDto:
     AuthCredentialsDto):Promise<{}>{
         return this.authService.signIn(authCredentialsDto);
@@ -27,9 +27,9 @@ export class AuthController {
 
     //회원조회
     @Post("/getMember")
-    getMember(@Param() id:string):Promise<Member>{
-        console.log(id);
-        return this.authService.getMember(id);
+    getMember(@Body() authCredentialsDto:AuthCredentialsDto):Promise<Member>{
+        console.log(authCredentialsDto);
+        return this.authService.getMember(authCredentialsDto);
     }
 
     //모든회원 조회
