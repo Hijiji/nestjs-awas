@@ -24,7 +24,7 @@ export class AuthService {
         await this.memberRepository.save(member);
         return this.getMember(authCredentialsDto);
     }
-
+    
     //로그인
     async signIn(authCredentialsDto:AuthCredentialsDto):Promise<{}>{
         const { id, pw } = authCredentialsDto;
