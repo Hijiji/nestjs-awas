@@ -6,6 +6,7 @@ import { onlineMap } from './onlineMap';
 //import { Socket } from 'dgram';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { emit } from 'process';
 
 @WebSocketGateway(8080,{
                         namespace:['websocket']
@@ -30,6 +31,7 @@ export class SocketGateway implements OnGatewayConnection, OnGatewayDisconnect, 
     console.log('connected1', socket.nsp.name);
     console.log('connected2', socket.handshake.address);
     console.log('connected3', socket.id);
+    
     //console.log('connected4', socket);
 
     if(!onlineMap[socket.nsp.name]){ //online map은 참가자 목록을 실시간으로 담고있는 객체다.
@@ -49,24 +51,37 @@ export class SocketGateway implements OnGatewayConnection, OnGatewayDisconnect, 
     newNamespace.emit('onlineList',Object.values(onlineMap[socket.nsp.name]));
   }
 
-  @SubscribeMessage('test')
-  handleTest(@MessageBody() data:string){
-    console.log('test',data);
-    console.log('test');
+  @SubscribeMessage('0')
+  handleTest(
+    @ConnectedSocket() socket: Socket,
+    @MessageBody() data:string
+  ):string{
+    console.log('test events 접근 성공');
+    console.log('data : ',data);
+    
+    socket.emit('message','test server11111 connect message send success'); // 접속성공 
+    socket.broadcast.emit('test', 'test server22222 connect message send success');
+    
+    return 'new world';
   }
 
   @SubscribeMessage('message')
   handleMessage(  //    client: any, payload: any
     @ConnectedSocket() socket: Socket,
     @MessageBody() message: string,
-  ){//  :string
+  ):string{//  
 
-    console.log('message : '+message);
-    //return 'Hello world!';
-    socket.broadcast.emit('message', { username: socket.id, message });
-    return { username: socket.id, message };
-
+    console.log('client message : '+message);
+    socket.emit('message','message server11111 connect message send success');
+    socket.broadcast.emit('message', 'message server22222 connect message send success');
+    return 'Hello world!';
+    //return { username: socket.id, message };
   }
+
+
+
+
+
 
   @SubscribeMessage('events')
   onEvent(client: any, data: any): Observable<WsResponse<number>> {
